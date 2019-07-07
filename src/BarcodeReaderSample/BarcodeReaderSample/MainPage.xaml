@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="BarcodeReaderSample.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarcodeReaderSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{x:Bind ViewModel}">
+
+    <Page.Resources>
+        <Style x:Key="CaptureButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="CornerRadius" Value="50"/>
+            <Setter Property="Margin" Value="30"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="Content" Value="&#xE89E;"/>
+        </Style>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid Background="Black"/>
+        <CaptureElement x:Name="previewElement"
+                        Stretch="Uniform"
+                        Visibility="{x:Bind ViewModel.IsPreviewing, Mode=OneWay}"
+                        Tapped="PreviewElement_Tapped"/>
+        <Border x:Name="BarcodeTargetMarkBorder"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="360"
+                Height="360"
+                BorderThickness="10"
+                BorderBrush="Red"
+                Visibility="{x:Bind ViewModel.IsBarcodeScanning, Mode=OneWay}"/>
+        <StackPanel x:Name="RightSideButtonBar"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Visibility="{x:Bind ViewModel.IsLandscape, Mode=OneWay}">
+            <Button x:Name="CaptureButton"
+                    Style="{StaticResource CaptureButtonStyle}"
+                    Click="CaptureButton_Click"/>
+        </StackPanel>
+        <StackPanel x:Name="BottomSideButtonBar"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Visibility="{x:Bind ViewModel.IsPortrait, Mode=OneWay}">
+            <Button x:Name="BottomCaptureButton"
+                    Style="{StaticResource CaptureButtonStyle}"
+                    Click="CaptureButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
